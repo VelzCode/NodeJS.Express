@@ -1,7 +1,7 @@
 [Repository](https://github.com/VelzCode/Week-7.NodeJS.Express)<br>
 [Live Page](https://week-7-nodejs-express.onrender.com)
 
-# Week-7.NodeJS.Express — Athena Systems Task Journal & Notes
+# NodeJS.Express — Athena Systems Task Journal & Notes
 
 A full-stack task and note application created for week seven of my coding bootcamp. This project connects a JavaScript frontend to a Node.js and Express backend, using a JSON file to store entries on the server. The live application is hosted on Render.
 
