@@ -1,109 +1,125 @@
-# Full Stack Notes Application
+[Repository](https://github.com/VelzCode/Week-7.NodeJS.Express)<br>
+[Live Page](https://week-7-nodejs-express.onrender.com)
 
-A full stack note and task tracking application built with Node.js and Express. The backend serves a static frontend and exposes a REST API for creating, reading, updating, and deleting notes. Data is persisted to a local JSON file on the server.
+# Week-7.NodeJS.Express — Athena Systems Task Journal & Notes
 
-## Table of Contents
+A full-stack task and note application created for week seven of my coding bootcamp. This project connects a JavaScript frontend to a Node.js and Express backend, using a JSON file to store entries on the server. The live application is hosted on Render.
 
-1. [Features](#features)
-2. [Programming Languages](#programming-languages)
-3. [File and Folder Structure](#file-and-folder-structure)
-4. [Local Setup and Installation](#local-setup-and-installation)
-5. [CRUD Operations](#crud-create-read-update-delete)
-6. [Persistent Storage](#persistent-storage)
-7. [API Reference](#api-reference)
-8. [Deployment](#deployment)
+## Disclaimer
+
+Athena Systems is a fictional company created for this educational project. The business descriptions and services are illustrative and do not represent a real company.
+
+## About the project
+
+The application brings together a **Task Journal** and **Save Notes** panel in a dark interface with neon accents. Both panels communicate with an Express API to create, retrieve, update and delete entries.
+
+This project builds on frontend JavaScript by introducing server routes, HTTP requests, JSON responses and file-based storage.
 
 ## Features
 
-- Two-column interface for tracking tasks and saving notes side by side
-- Create, read, update, and delete entries through the browser
-- Inline editing of existing entries via `contenteditable` text
-- Task completion toggling
-- Duplicate entry prevention on create and update
-- Data persists across server restarts using a JSON file on disk
+- **Task Journal** — Add tasks, edit their text, mark them complete and delete them.
+- **Save Notes** — Create, edit and delete notes alongside the task list.
+- **Inline editing** — Edit an entry directly in the list; changes save when the text loses focus.
+- **Completion styling** — Completed tasks display a strike-through and a highlighted check indicator.
+- **Duplicate checks** — The browser checks for matching text, ignoring letter case, within the relevant list when creating or editing entries.
+- **Empty-entry checks** — Blank or whitespace-only new entries are rejected.
+- **Server-side storage** — Entries are written to `data.json` and loaded through the API.
+- **Responsive layout** — Task and note panels sit side by side on wider screens and stack at smaller widths.
+- **Custom styling** — Dark panels, neon borders, text glow and hover effects created with CSS.
 
-## Programming Languages
+## Built with
 
-- **Backend:** Node.js, Express
-- **Frontend:** HTML, CSS, JavaScript
-- **Storage:** JSON file (`data.json`) via the Node `fs` module
-- **ID Generation:** `uuid` package
+- **HTML5 and CSS3** — Page structure, layout and styling.
+- **JavaScript** — DOM updates, inline editing and asynchronous Fetch API requests.
+- **Node.js** — Server runtime and file-system access.
+- **Express 5** — Static file serving, JSON request parsing and API routes.
+- **UUID** — Generating identifiers for new entries.
+- **JSON file storage** — Saving tasks and notes without a separate database.
 
-## File and Folder Structure
+## How to use
 
+1. Open the Live Page link at the top of this README.
+2. Enter a task in **Task Journal** and select **Add**, or enter a note in **Save Notes** and select **Save**.
+3. Click an entry's text to edit it, then click away to save the change.
+4. Click a task row outside its editable text and delete control to toggle its completed state.
+5. Select **×** to delete an entry immediately.
+
+## Local setup
+
+Install Node.js with npm, then clone or download the repository.
+
+From the project folder, install dependencies:
+
+```bash
+npm install
 ```
+
+Start the application:
+
+```bash
+npm start
+```
+
+Open **http://localhost:3001** in your browser. Stop the server with **Ctrl+C** in the terminal.
+
+The supplied server uses port `3001`. No environment variables or database configuration are required for this local setup. Run the application through the Node.js server for its API features to work.
+
+## Project structure
+
+```text
 Week-7.NodeJS.Express/
 ├── public/
-│   ├── index.html         # Frontend markup for the task and note UI
-│   ├── script.js          # Frontend logic (fetch calls to the API)
-│   └── style.css          # Styling for the interface
-├── data.json              # Persistent storage for tasks and notes
-├── server.js              # Express server, routes, and CRUD logic
-├── package.json           # Project metadata, scripts, and dependencies
-├── package-lock.json      # Locked dependency versions
-├── .gitignore             # Excludes node_modules and other local files
-└── README.md              # Project documentation
+│   ├── index.html       # Task and note interface
+│   ├── script.js        # Browser interactions and API requests
+│   └── style.css        # Custom theme and responsive layout
+├── server.js            # Express server and API routes
+├── data.json            # Stored tasks and notes
+├── package.json         # Dependencies and npm scripts
+├── package-lock.json    # Locked dependency versions
+├── .gitignore           # Git exclusion rules
+├── README.md            # Project documentation
+├── rubrics.md           # Assignment reference material
+└── error_images/        # Development screenshot
 ```
 
-The project separates concerns by keeping API and server logic in `server.js`, and frontend assets in the `public` folder. Express serves the `public` folder directly, and all data requests go through the `/data` API route.
+## API routes
 
-## Local Setup and Installation
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/data` | Retrieve all tasks and notes. |
+| GET | `/data/:id` | Retrieve one entry by its ID. |
+| POST | `/data` | Create an entry. |
+| PUT | `/data/:id` | Update an entry. |
+| DELETE | `/data/:id` | Delete an entry. |
+| POST | `/echo` | Return the submitted JSON under a `received` property. |
 
-### Prerequisites
+Entries use a `type` field to distinguish tasks from notes and a `text` field for their content. Tasks also have a `completed` state. The browser sends JSON requests to these routes and updates the relevant list.
 
-- [Node.js](https://nodejs.org/) installed (includes npm)
+Missing entry IDs return a `404` response. The data routes include error handling that returns a `500` response if a server operation fails.
 
-### Steps
+## Storage and current scope
 
-1. Clone or download this repository to your machine.
+Both tasks and notes are stored in the same server-side JSON file. There are no user accounts or separate personal task lists: visitors use the same stored data.
 
-2. Open a terminal in the project folder and install dependencies:
+On a local installation, entries remain available across server restarts while `data.json` is retained. Hosted data retention depends on the deployment's storage configuration; this project does not include a separate database or persistent-disk configuration.
 
-   ```bash
-   npm install
-   ```
+The duplicate and blank-new-entry checks run in the browser. The API does not enforce those checks, and inline edits currently allow an entry to be cleared.
 
-   This installs the packages listed in `package.json`, which are `express` and `uuid`.
+The **Call Us** and **Email Us** links are placeholders. The project does not currently include an automated test suite; the `npm test` script is a placeholder.
 
-3. Start the server:
+## Hosting
 
-   ```bash
-   npm start
-   ```
+The live version is hosted on Render at the link above. The project uses `npm install` to install dependencies and `npm start` to launch the Express server. Express serves both the frontend files and the API from the same application.
 
-   This runs `node server.js` as defined in the `scripts` section of `package.json`.
+## Learning focus
 
-4. Open a browser and go to:
+- Creating routes with Express and working with HTTP methods.
+- Connecting a frontend to a backend using `fetch`, `async` and `await`.
+- Implementing create, read, update and delete operations.
+- Reading and writing JSON data with Node.js.
+- Generating entry IDs and handling missing records.
+- Separating frontend assets from server logic.
 
-   ```
-   http://localhost:3001
-   ```
+## Author
 
-   The port is set in `server.js` via the `PORT` constant.
-
-5. To stop the server, return to the terminal and press `Ctrl + C`.
-
-No environment variables or database setup are required, since notes are stored in the local `data.json` file.
-
-## CRUD (Create, Read, Update, Delete)
-
-All CRUD routes are defined in `server.js` and operate on the `/data` endpoint, each route is wrapped in an `asyncHandler` helper function so that errors are caught and returned as a 500 response rather than crashing the server.
-
-## Persistent Storage
-
-Notes and tasks are stored in `data.json` at the root of the project, two helper functions in `server.js` handle reading from and writing to this file.
-
-## API Reference
-
-| Method | Route        | Description                          |
-|--------|--------------|---------------------------------------|
-| GET    | `/data`      | Retrieve all stored entries           |
-| GET    | `/data/:id`  | Retrieve a single entry by ID         |
-| POST   | `/data`      | Create a new entry                    |
-| PUT    | `/data/:id`  | Update an existing entry by ID        |
-| DELETE | `/data/:id`  | Delete an entry by ID                 |
-
-## Deployment
-
-This application is deployed on [Render.com](https://render.com/), since it is a Node.js application started with `npm start`.
-No additional build step is required for deployment, set the build command to `npm install` and the start command to `npm start` when configuring the Render web service.
+**Jason Dewhurst** — [VelzCode on GitHub](https://github.com/VelzCode)
