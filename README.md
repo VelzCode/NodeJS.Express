@@ -1,4 +1,4 @@
-[Repository](https://github.com/VelzCode/Week-7.NodeJS.Express)<br>
+[Repository](https://github.com/VelzCode/NodeJS.Express)<br>
 [Live Page](https://week-7-nodejs-express.onrender.com)
 
 # NodeJS.Express — Athena Systems Task Journal & Notes
